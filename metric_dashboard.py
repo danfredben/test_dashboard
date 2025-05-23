@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import os
 import plotly.express as px
+import plotly.graph_objects as go
 
 # --- Config ---
 log_path = "ato_log.log"
@@ -92,18 +93,31 @@ y_axis_limits = {
     "vehicle_state_avg": [1, 4]
 }
 
+# --- Signal Plots with Plotly and locked Y-axis zoom ---
 for field in available_fields:
     st.subheader(f"📈 Time Series for `{field}`")
     field_df = df[['timestamp', field]].dropna()
     if not field_df.empty:
         fig = px.line(field_df, x='timestamp', y=field, title=field)
+
+        # Lock Y-axis zoom, set range if available
+        y_range = y_axis_limits.get(field)
         fig.update_layout(
             xaxis_title="Timestamp",
             yaxis_title=field,
-            yaxis_fixedrange=True,         # Lock Y-axis scaling
-            dragmode="zoom",               # Allow zooming
+            dragmode="zoom",  # Zoom mode
+            yaxis=dict(
+                fixedrange=True,
+                range=y_range if y_range else None
+            ),
+            xaxis=dict(
+                rangeslider=dict(visible=True),
+                tickformat="%H:%M:%S",  # Show HH:MM:SS format
+                tickmode='auto',
+                dtick=1000  # 1 second in milliseconds
+            )
         )
-        fig.update_xaxes(rangeslider_visible=True)  # Optional: enable small zoom slider below
+
         st.plotly_chart(fig, use_container_width=True)
         st.dataframe(field_df)
     else:
