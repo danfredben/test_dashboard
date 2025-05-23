@@ -20,7 +20,7 @@ col1, col2 = st.columns([1, 3])
 with col1:
     st.image(image_path, width=150)
 with col2:
-    st.title("🚘 Teleops Signal Dashboard")
+    st.title("Teleops Signal Dashboard")
 
 # --- Check if file exists ---
 if not os.path.exists(log_path):
