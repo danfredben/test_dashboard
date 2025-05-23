@@ -4,7 +4,7 @@ import json
 import os
 
 # --- Config ---
-log_path = r"C:\Users\daniben1\OneDrive - Magna\Microsoft Teams Chat Files\Documents\DV BOT DATA\DV9\Comms_loss\metrics_logs\ato_log.log"
+log_path = "ato_log.log"
 target_fields = ["vehicle_state_avg", "speed_avg", "gear_avg", "gas_pedal_avg", "steering_wheel_avg", "hazard_signal_avg"]
 
 # Use the full image path
