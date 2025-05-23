@@ -8,7 +8,7 @@ log_path = r"C:\Users\daniben1\OneDrive - Magna\Microsoft Teams Chat Files\Docum
 target_fields = ["vehicle_state_avg", "speed_avg", "gear_avg", "gas_pedal_avg", "steering_wheel_avg", "hazard_signal_avg"]
 
 # Use the full image path
-image_path = r"C:\Users\daniben1\OneDrive - Magna\Microsoft Teams Chat Files\Documents\DV BOT DATA\DV9\Comms_loss\metrics_logs\magna.png"
+image_path = "magna.png"
 
 # Page config
 st.set_page_config(page_title="Teleops Signal Dashboard", layout="wide")
