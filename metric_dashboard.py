@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import json
 import os
+import plotly.express as px
 
 # --- Config ---
 log_path = "ato_log.log"
@@ -80,12 +81,20 @@ with st.expander("🔍 Debug / Info Panel"):
     st.markdown("**First Few Rows:**")
     st.dataframe(df.head())
 
-# --- Signal Plots ---
+# --- Signal Plots with Plotly ---
 for field in available_fields:
     st.subheader(f"📈 Time Series for `{field}`")
     field_df = df[['timestamp', field]].dropna()
     if not field_df.empty:
-        st.line_chart(field_df.set_index('timestamp'))
+        fig = px.line(field_df, x='timestamp', y=field, title=field)
+        fig.update_layout(
+            xaxis_title="Timestamp",
+            yaxis_title=field,
+            yaxis_fixedrange=True,         # Lock Y-axis scaling
+            dragmode="zoom",               # Allow zooming
+        )
+        fig.update_xaxes(rangeslider_visible=True)  # Optional: enable small zoom slider below
+        st.plotly_chart(fig, use_container_width=True)
         st.dataframe(field_df)
     else:
         st.info(f"No data available for `{field}`")
