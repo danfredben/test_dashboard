@@ -82,6 +82,16 @@ with st.expander("🔍 Debug / Info Panel"):
     st.dataframe(df.head())
 
 # --- Signal Plots with Plotly ---
+# Define Y-axis ranges for specific signals
+y_axis_limits = {
+    "gas_pedal_avg": [-1, 1],
+    "steering_wheel_avg": [-1, 1],
+    "speed_avg": [0, 20],
+    "gear_avg": [0, 4],
+    "hazard_signal_avg": [0, 1],
+    "vehicle_state_avg": [0, 4]
+}
+
 for field in available_fields:
     st.subheader(f"📈 Time Series for `{field}`")
     field_df = df[['timestamp', field]].dropna()
